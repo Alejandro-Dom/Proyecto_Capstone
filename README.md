@@ -14,5 +14,5 @@ En esre repositorio se encuentra toda la información relacionada con nuestro Pr
 ## Desarrollado por:
 - [Alejandro Domínguez Ramirez](https://github.com/Alejandro-Dom)
 - [Luis Manuel Sánchez Vívar](https://github.com/ManuSV16)
-- [Roberto Maya Velez]()
+
 
