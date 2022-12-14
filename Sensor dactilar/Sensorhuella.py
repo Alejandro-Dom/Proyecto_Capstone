@@ -14,11 +14,15 @@ import serial
 import RPi.GPIO as GPIO
 import adafruit_fingerprint
 
-Pin = 20
-pin = 21
+#Pin = 20
+#pin = 21
+servo = 17
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(pin, GPIO.OUT)
-GPIO.setup(Pin, GPIO.OUT)
+#GPIO.setup(pin, GPIO.OUT)
+#GPIO.setup(Pin, GPIO.OUT)
+GPIO.setup(servo, GPIO.OUT)
+p = GPIO.PWM(servo,50) #GPIO 17 para PWM con 50 Hz
+p.start(0)
 
 # Usando con Linux/Raspberry Pi 4 y hardware UART:
 uart = serial.Serial("/dev/ttyS0", baudrate=57600, timeout=1)
@@ -34,7 +38,7 @@ def get_fingerprint():
     print("Esperando la imagen..")
     while finger.get_image() != adafruit_fingerprint.OK:
         pass
-    print("Modelando..")
+    print("Modelando...")
     if finger.image_2_tz(1) != adafruit_fingerprint.OK:
         return False
     print("Buscando...")
@@ -89,7 +93,7 @@ def enroll_finger(location):
     print("Creando modelo...", end="")
     i = finger.create_model()
     if i == adafruit_fingerprint.OK:
-        print("Creadoo")
+        print("Creado")
     else:
         if i == adafruit_fingerprint.ENROLLMISMATCH:
             print("No coinciden")
@@ -151,14 +155,15 @@ while True:
     if c == "2":
         if get_fingerprint():
             print("Huella detectada con ID #", finger.finger_id, "con valor de confianza =", finger.confidence)
-            GPIO.output(Pin, GPIO.HIGH)
+            """GPIO.output(Pin, GPIO.HIGH)
             time.sleep(1)
-            GPIO.output(Pin, GPIO.LOW)
+            GPIO.output(Pin, GPIO.LOW)"""
+            p.ChangeDutyCycle(2.5)
         else:
             print("Huella no encontrada")
-            GPIO.output(pin, GPIO.HIGH)
+            """GPIO.output(pin, GPIO.HIGH)
             time.sleep(1)
-            GPIO.output(pin, GPIO.LOW)            
+            GPIO.output(pin, GPIO.LOW)"""            
     if c == "3":
         if finger.delete_model(get_num(finger.library_size)) == adafruit_fingerprint.OK:
             print("Borrado")
@@ -171,5 +176,6 @@ while True:
             print("Error al vacirar la biblioteca")
     if c == "5":
         print("Adiós")
+        p.stop()
         GPIO.cleanup()
         raise SystemExit
