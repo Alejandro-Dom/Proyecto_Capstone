@@ -21,7 +21,7 @@ GPIO.setmode(GPIO.BCM)
 #GPIO.setup(pin, GPIO.OUT)
 #GPIO.setup(Pin, GPIO.OUT)
 GPIO.setup(servo, GPIO.OUT)
-p = GPIO.PWM(servo,50) #GPIO 17 para PWM con 50 Hz
+p = GPIO.PWM(servo,50) #GPIO 17 para PWM con pulso de 50 Hz
 p.start(0)
 
 # Usando con Linux/Raspberry Pi 4 y hardware UART:
@@ -158,7 +158,7 @@ while True:
             """GPIO.output(Pin, GPIO.HIGH)
             time.sleep(1)
             GPIO.output(Pin, GPIO.LOW)"""
-            p.ChangeDutyCycle(2.5)
+            p.ChangeDutyCycle(7)
         else:
             print("Huella no encontrada")
             """GPIO.output(pin, GPIO.HIGH)
@@ -176,6 +176,7 @@ while True:
             print("Error al vacirar la biblioteca")
     if c == "5":
         print("Adiós")
+        p.ChangeDutyCycle(0)
         p.stop()
         GPIO.cleanup()
         raise SystemExit
