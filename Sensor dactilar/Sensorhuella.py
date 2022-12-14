@@ -151,8 +151,14 @@ while True:
     if c == "2":
         if get_fingerprint():
             print("Huella detectada con ID #", finger.finger_id, "con valor de confianza =", finger.confidence)
+            GPIO.output(Pin, GPIO.HIGH)
+            time.sleep(1)
+            GPIO.output(Pin, GPIO.LOW)
         else:
             print("Huella no encontrada")
+            GPIO.output(pin, GPIO.HIGH)
+            time.sleep(1)
+            GPIO.output(pin, GPIO.LOW)            
     if c == "3":
         if finger.delete_model(get_num(finger.library_size)) == adafruit_fingerprint.OK:
             print("Borrado")
@@ -165,4 +171,5 @@ while True:
             print("Error al vacirar la biblioteca")
     if c == "5":
         print("Adiós")
+        GPIO.cleanup()
         raise SystemExit
