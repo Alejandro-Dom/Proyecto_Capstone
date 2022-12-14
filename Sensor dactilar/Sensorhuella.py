@@ -150,19 +150,19 @@ while True:
         enroll_finger(get_num(finger.library_size))
     if c == "2":
         if get_fingerprint():
-            print("Detected #", finger.finger_id, "with confidence", finger.confidence)
+            print("Huella detectada con ID #", finger.finger_id, "con valor de confianza =", finger.confidence)
         else:
-            print("Finger not found")
+            print("Huella no encontrada")
     if c == "3":
         if finger.delete_model(get_num(finger.library_size)) == adafruit_fingerprint.OK:
-            print("Deleted!")
+            print("Borrado")
         else:
-            print("Failed to delete")
+            print("Error al borrar")
     if c == "4":
         if finger.empty_library() == adafruit_fingerprint.OK:
-            print("Library empty!")
+            print("Biblioteca vacía")
         else:
-            print("Failed to empty library")
+            print("Error al vacirar la biblioteca")
     if c == "5":
-        print("Exiting fingerprint example program")
+        print("Adiós")
         raise SystemExit
