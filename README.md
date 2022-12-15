@@ -8,7 +8,7 @@ Siempre ha existido una gran probabilidad de que los métodos de autenticación 
 Las soluciones biométricas garantizan un mayor nivel de protección, utilizando la identidad de un usuario como principal medio de autenticación para acceder a la información sensible, verificando aspectos tangibles como algo que el usuario tiene o algo que es.
 
 ## Objetivos Generales
-    - Diseñar y programar una caja que utilce por lo menos un dato de la biometría del usuario para tener un producto ultra seguro. 
+Diseñar y programar una caja que utilce por lo menos un dato de la biometría del usuario para tener un producto ultra seguro. 
 ## Objetivos Específicos
     - Programar un senosro As608 de huella dactilar utilizando Python
     - Programar un keypad matricial de 4x4 utilizando Python
@@ -24,7 +24,7 @@ Se espera tener un producto totalmente funcional, el cual se pueda abrir solamen
     - Servomotor SG90 
 ## Software
     - Visual Studio Code
-    
+
 
 ## Instrucciones:
 
