@@ -20,10 +20,10 @@ Se espera tener un producto totalmente funcional, el cual se pueda abrir solamen
 ![](https://github.com/Alejandro-Dom/Proyecto_Capstone/blob/main/Imagenes/RPi4.jpg)
     
 - Placa de expansión para pines GPIO (Opcional)
-
-![](https://github.com/Alejandro-Dom/Proyecto_Capstone/blob/main/Imagenes/GPIO.jpg
+![](https://github.com/Alejandro-Dom/Proyecto_Capstone/blob/main/Imagenes/GPIO.jpg)
 
 - Lector de huella dactilar As608 [Ver Datasheet](https://server4.eca.ir/eshop/000/AS608/Synochip-AS608.pdf) 
+![](https://github.com/Alejandro-Dom/Proyecto_Capstone/blob/main/Imagenes/lector-digital-de-huella-dactilar-as608.jpg)
 
 - Teclado matricial 4x4 de membrana
 - Buzzer
