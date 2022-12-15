@@ -16,12 +16,18 @@ Diseñar y programar una caja que utilce por lo menos un dato de la biometría d
 Se espera tener un producto totalmente funcional, el cual se pueda abrir solamente con los datos de un único ususario; en caso contrario, la caja se bloqueará y emitirá una alarma que no podrá ser desactivada.
 # Material necesario
 ## Hardware
-    - RaspBerry Pi 4
-    - Placa de expansión para pines GPIO (Opcional)
-    - Lector de huella dactilar As608 [Ver Datasheet](https://server4.eca.ir/eshop/000/AS608/Synochip-AS608.pdf) 
-    - Teclado matricial 4x4 de membrana
-    - Buzzer
-    - Servomotor SG90 
+- RaspBerry Pi 4
+![](https://github.com/Alejandro-Dom/Proyecto_Capstone/blob/main/Imagenes/RPi4.jpg)
+    
+- Placa de expansión para pines GPIO (Opcional)
+
+![](https://github.com/Alejandro-Dom/Proyecto_Capstone/blob/main/Imagenes/GPIO.jpg
+
+- Lector de huella dactilar As608 [Ver Datasheet](https://server4.eca.ir/eshop/000/AS608/Synochip-AS608.pdf) 
+
+- Teclado matricial 4x4 de membrana
+- Buzzer
+- Servomotor SG90 
 ## Software
     - Visual Studio Code
 
