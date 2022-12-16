@@ -1,5 +1,5 @@
 # Proyecto_Capstone: Caja de Seguridad biométrica
-Poyo
+
 ## Descripción
 Se le conoce como seguridad biométrica al uso de la biometría para proteger y proporcionar robustez a dispositivos, instalaciones o cualquier tipo de información confidencial, estableciendo un mayor grado de protección respecto a métodos tradicionales. Nuestra caja de seguridad utilizará las huellas dactilares del usuario y un código alfanumérico de 5 dígitos para tener acceso al contenido.
 
