@@ -25,10 +25,7 @@ GPIO.setup(Pin, GPIO.OUT)
 GPIO.setup(servo, GPIO.OUT)
 GPIO.setup(buzz, GPIO.OUT, initial = GPIO.LOW)
 p = GPIO.PWM(servo,50) #GPIO 17 para PWM con pulso de 50 Hz
-p.start(0)
-p.ChangeDutyCycle(0)
-time.sleep(0.5)
-p.ChangeDutyCycle(0)
+p.start(2.5)
 
 # Usando con Linux/Raspberry Pi 4 y hardware UART:
 uart = serial.Serial("/dev/ttyS0", baudrate=57600, timeout=1)
