@@ -1,7 +1,7 @@
 # Proyecto_Capstone: Caja de Seguridad biométrica
 
 ## Descripción
-Se le conoce como seguridad biométrica al uso de la biometría para proteger y proporcionar robustez a dispositivos, instalaciones o cualquier tipo de información confidencial, estableciendo un mayor grado de protección respecto a métodos tradicionales. Nuestra caja de seguridad utilizará las huellas dactilares del usuario y un código alfanumérico de 5 dígitos para tener acceso al contenido.
+Se le conoce como seguridad biométrica al uso de la biometría para proteger y proporcionar robustez a dispositivos, instalaciones o cualquier tipo de información confidencial, estableciendo un mayor grado de protección respecto a métodos tradicionales. Nuestra caja de seguridad utilizará las huellas dactilares del usuario y un código numérico de 6 dígitos, que se genera cada cierto tiempo, para tener acceso al contenido.
 
 ## Justificación
 Siempre ha existido una gran probabilidad de que los métodos de autenticación tradicionales puedan ser robados por estafadores.
@@ -10,8 +10,8 @@ Las soluciones biométricas garantizan un mayor nivel de protección, utilizando
 ## Objetivos Generales
 Diseñar y programar una caja que utilice por lo menos un dato de la biometría del usuario para tener un producto ultra seguro. 
 ## Objetivos Específicos
-    - Programar un senosro As608 de huella dactilar utilizando Python
-    - Programar un keypad matricial de 4x4 utilizando Python
+    - Programar un senosro As608 de huella dactilar utilizando Python.
+    - Programar un keypad matricial de 4x4 que pueda cambiar el pin de autorización cada cierto tiempo.
 ## Resultados Esperados
 Se espera tener un producto totalmente funcional, el cual se pueda abrir solamente con los datos de un único usuario; en caso contrario, la caja se bloqueará y emitirá una alarma que no podrá ser desactivada.
 # Material necesario
@@ -24,7 +24,7 @@ Se espera tener un producto totalmente funcional, el cual se pueda abrir solamen
 - Servomotor SG90 
 - Cables dupont (macho-hembra)
 ![](https://github.com/Alejandro-Dom/Proyecto_Capstone/blob/main/Imagenes/Materiales.jpg)
-### Software
+### Software y lenguajes
 - Visual Studio Code
 
 
