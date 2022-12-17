@@ -15,13 +15,13 @@ import serial
 import RPi.GPIO as GPIO
 import adafruit_fingerprint
 
-#Pin = 20
+Pin = 20
 #pin = 21
 servo = 18
 buzz = 23
 GPIO.setmode(GPIO.BCM)
 #GPIO.setup(pin, GPIO.OUT)
-#GPIO.setup(Pin, GPIO.OUT)
+GPIO.setup(Pin, GPIO.OUT)
 GPIO.setup(servo, GPIO.OUT)
 GPIO.setup(buzz, GPIO.OUT, initial = GPIO.LOW)
 p = GPIO.PWM(servo,50) #GPIO 17 para PWM con pulso de 50 Hz
@@ -138,9 +138,9 @@ try:
     print("Ponga su dedo sobre el escaner")
     if get_fingerprint():
         print("Huella detectada con ID #", finger.finger_id, "con valor de confianza =", finger.confidence)
-        """GPIO.output(Pin, GPIO.HIGH)
+        GPIO.output(Pin, GPIO.HIGH)
         time.sleep(1)
-        GPIO.output(Pin, GPIO.LOW)"""
+        GPIO.output(Pin, GPIO.LOW)
         p.ChangeDutyCycle(7)
     else:
         print("Huella no encontrada")
