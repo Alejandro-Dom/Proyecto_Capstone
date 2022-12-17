@@ -71,6 +71,8 @@ try:
         time.sleep(1)
         GPIO.output(Pin, GPIO.LOW)
         p.ChangeDutyCycle(7)
+        time.sleep(0.5)
+        p.ChangeDutyCycle(0)
     else:
         print("Huella no encontrada")
         """GPIO.output(pin, GPIO.HIGH)
@@ -82,10 +84,10 @@ try:
             GPIO.output(buzz, GPIO.LOW)
             sleep(0.3) 
     GPIO.cleanup()
+    p.stop()
     raise SystemExit
 except KeyboardInterrupt:         
     print("Adiós")
-    p.ChangeDutyCycle(0)
     p.stop()
     GPIO.cleanup()
     raise SystemExit
