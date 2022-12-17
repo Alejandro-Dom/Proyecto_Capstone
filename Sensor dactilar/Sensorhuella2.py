@@ -17,7 +17,7 @@ import adafruit_fingerprint
 
 Pin = 20
 #pin = 21
-servo = 18
+servo = 17
 buzz = 23
 GPIO.setmode(GPIO.BCM)
 #GPIO.setup(pin, GPIO.OUT)
