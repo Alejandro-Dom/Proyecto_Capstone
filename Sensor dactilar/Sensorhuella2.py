@@ -48,77 +48,6 @@ def get_fingerprint():
     if finger.finger_search() != adafruit_fingerprint.OK:
         return False
     return True
-
-# pylint: disable=too-many-statements
-def enroll_finger(location):
-    """Toma 2 imagenes del dedo y lo modela, luego lo guarda'"""
-    for fingerimg in range(1, 3):
-        if fingerimg == 1:
-            print("Coloca tu dedo en el sensor...", end="")
-        else:
-            print("Coloca el mismo dedo otra vez...", end="")
-
-        while True:
-            i = finger.get_image()
-            if i == adafruit_fingerprint.OK:
-                print("Imagen tomada")
-                break
-            if i == adafruit_fingerprint.NOFINGER:
-                print(".", end="")
-            elif i == adafruit_fingerprint.IMAGEFAIL:
-                print("Error de imagen")
-                return False
-            else:
-                print("Otro error")
-                return False
-
-        print("Modelando..", end="")
-        i = finger.image_2_tz(fingerimg)
-        if i == adafruit_fingerprint.OK:
-            print("Se completo la modelación")
-        else:
-            if i == adafruit_fingerprint.IMAGEMESS:
-                print("Imagen mala")
-            elif i == adafruit_fingerprint.FEATUREFAIL:
-                print("No se pudo identificar las características")
-            elif i == adafruit_fingerprint.INVALIDIMAGE:
-                print("Imagen inválida")
-            else:
-                print("Otro error")
-            return False
-
-        if fingerimg == 1:
-            print("Quita tu dedo")
-            time.sleep(1)
-            while i != adafruit_fingerprint.NOFINGER:
-                i = finger.get_image()
-
-    print("Creando modelo...", end="")
-    i = finger.create_model()
-    if i == adafruit_fingerprint.OK:
-        print("Creado")
-    else:
-        if i == adafruit_fingerprint.ENROLLMISMATCH:
-            print("No coinciden")
-        else:
-            print("Otro error")
-        return False
-
-    print("Guardando modelo #%d..." % location, end="")
-    i = finger.store_model(location)
-    if i == adafruit_fingerprint.OK:
-        print("Guardadi")
-    else:
-        if i == adafruit_fingerprint.BADLOCATION:
-            print("Mala ubicación de almacenamiento")
-        elif i == adafruit_fingerprint.FLASHERR:
-            print("Error de almacenamiento flash")
-        else:
-            print("Otro error")
-        return False
-
-    return True
-
 ##################################################
 
 
@@ -152,6 +81,7 @@ try:
             sleep(0.3)
             GPIO.output(buzz, GPIO.LOW)
             sleep(0.3) 
+        raise SystemExit
 except KeyboardInterrupt:         
     print("Adiós")
     p.ChangeDutyCycle(0)
