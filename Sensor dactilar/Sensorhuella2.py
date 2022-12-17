@@ -81,8 +81,8 @@ try:
             sleep(0.3)
             GPIO.output(buzz, GPIO.LOW)
             sleep(0.3) 
-            GPIO.cleanup()
-            raise SystemExit
+    GPIO.cleanup()
+    raise SystemExit
 except KeyboardInterrupt:         
     print("Adiós")
     p.ChangeDutyCycle(0)
