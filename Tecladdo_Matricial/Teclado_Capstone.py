@@ -44,8 +44,8 @@ def on_connect(client, userdata,flags,rc):
     client.subscribe("Capstone/Caja_Seguridad_Biometrica/MADS")
 def on_message(client, userdata, msg):
     if msg.topic == "Capstone/Caja_Seguridad_Biometrica/MADS":
+        global pin
         pin=(msg.payload.decode("utf-8"))
-        print (pin)
         return pin
 client=mqtt.Client()
 client.on_connect = on_connect
