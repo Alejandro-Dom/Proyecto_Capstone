@@ -89,8 +89,9 @@ void loop() {
     timeLast = timeNow; // Actualización de seguimiento de tiempo
     String caracteres[10]= {"1","2","3","4","5","6","7","8","9","0"};
     pin= caracteres[random(0,10)]+caracteres[random(0,10)]+caracteres[random(0,10)]+caracteres[random(0,10)]+
-    caracteres[random(0,10)]+caracteres[random(0,10)]+caracteres[random(0,10)];//Generación del pin
-    String json = "{\"pin\":" + String (pin) + "}";
+    caracteres[random(0,10)]+caracteres[random(0,10)];//Generación del pin
+    delay(16000);
+    String json = "{\"pin\":" + pin + "}";
     Serial.println(json); // Se imprime en monitor solo para poder visualizar que el string esta correctamente creado
     int str_len = json.length() + 1;//Se calcula la longitud del string
     char char_array[str_len];//Se crea un arreglo de caracteres de dicha longitud
