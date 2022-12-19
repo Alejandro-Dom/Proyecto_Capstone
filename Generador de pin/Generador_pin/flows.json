@@ -1,0 +1,149 @@
+[
+    {
+        "id": "6750ad73d78d0f8e",
+        "type": "tab",
+        "label": "Flow 8",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "1295aeee73020572",
+        "type": "mqtt in",
+        "z": "6750ad73d78d0f8e",
+        "name": "",
+        "topic": "Capstone/Caja_Seguridad_Biometrica/MA",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "5e5d879467dbf5ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 220,
+        "y": 100,
+        "wires": [
+            [
+                "5955a7efd61a9c5f"
+            ]
+        ]
+    },
+    {
+        "id": "5955a7efd61a9c5f",
+        "type": "json",
+        "z": "6750ad73d78d0f8e",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 490,
+        "y": 100,
+        "wires": [
+            [
+                "9d5d12042c51e73e"
+            ]
+        ]
+    },
+    {
+        "id": "9d5d12042c51e73e",
+        "type": "function",
+        "z": "6750ad73d78d0f8e",
+        "name": "function 1",
+        "func": "msg.topic = msg.payload.id;\nmsg.payload =msg. payload.pin;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 100,
+        "wires": [
+            [
+                "0e349d4bcd8eeda7",
+                "66f216933a674d51"
+            ]
+        ]
+    },
+    {
+        "id": "0e349d4bcd8eeda7",
+        "type": "ui_text",
+        "z": "6750ad73d78d0f8e",
+        "group": "5b2c9b712dcb5264",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 970,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "66f216933a674d51",
+        "type": "mqtt out",
+        "z": "6750ad73d78d0f8e",
+        "name": "",
+        "topic": "Capstone/Caja_Seguridad_Biometrica/MADS",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "5e5d879467dbf5ec",
+        "x": 1090,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "5e5d879467dbf5ec",
+        "type": "mqtt-broker",
+        "name": "HiveMQ",
+        "broker": "18.184.249.190",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "5b2c9b712dcb5264",
+        "type": "ui_group",
+        "name": "Pin",
+        "tab": "bbebc27775543173",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "bbebc27775543173",
+        "type": "ui_tab",
+        "name": "Generador de Pin",
+        "icon": "dashboard",
+        "order": 7,
+        "disabled": false,
+        "hidden": false
+    }
+]
