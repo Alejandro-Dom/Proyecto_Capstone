@@ -25,6 +25,7 @@ LEDV = 27
 LEDR = 22
 servo = 17
 buzz = 23
+GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(LEDR, GPIO.OUT)
 GPIO.setup(LEDV, GPIO.OUT)
@@ -82,11 +83,42 @@ def on_message(client, userdata, msg):
         pin=(msg.payload.decode("utf-8"))
         print (pin)
 
-client = mqtt.Client()
+client=mqtt.Client()
 client.on_connect = on_connect
+client.on_message = on_message
+
 client.connect("broker.hivemq.com",1883,60)
 client.loop_start()
 time.sleep(3)
 
 print("Ingresa la contraseña")
 print(pin)
+if(pin== "True"):
+    try:
+        print("Ponga su dedo sobre el escaner")
+        if get_fingerprint():
+            print("Huella detectada con ID #", finger.finger_id, "con valor de confianza =", finger.confidence)
+            GPIO.output(LEDV, GPIO.HIGH)
+            time.sleep(1)
+            GPIO.output(LEDV, GPIO.LOW)
+            enviarmqtt("Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion","Seguro abierto")
+        else:
+            print("Huella no encontrada")
+            GPIO.output(LEDR, GPIO.HIGH)
+            time.sleep(1)
+            GPIO.output(LEDR, GPIO.LOW)
+            while True:
+                GPIO.output(buzz, GPIO.HIGH)
+                sleep(0.3)
+                GPIO.output(buzz, GPIO.LOW)
+                sleep(0.3) 
+        GPIO.cleanup()
+        p.stop()
+        raise SystemExit
+    except KeyboardInterrupt:         
+        print("Adiós")
+        p.stop()
+        GPIO.cleanup()
+        client.loop_stop()
+        client.disconnect()
+        raise SystemExit
