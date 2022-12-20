@@ -88,7 +88,7 @@ client.on_connect = on_connect
 client.on_message = on_message
 
 client.connect("broker.hivemq.com",1883,60)
-client.loop_start()
+client.loop_forever()
 time.sleep(3)
 
 print("Ingresa la contraseña")
