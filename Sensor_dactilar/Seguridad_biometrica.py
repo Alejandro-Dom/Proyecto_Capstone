@@ -14,6 +14,7 @@ from time import sleep
 import serial
 import RPi.GPIO as GPIO
 import adafruit_fingerprint
+import paho.mqtt.client as mqtt
 
 Pin = 20
 #pin = 21
@@ -62,6 +63,18 @@ def get_num(max_number):
             pass
     return i
 
+def on_connect (client,userdata,flags,rc):
+    print("Se conectó con mqtt")
+
+def enviarmqtt(tema, mensaje, host = "broker.hivemq.com", Puerto = 1883):
+    client.publis(tema, mensaje)
+
+client = mqtt.client()
+client.on_connect = on_connect
+client.connect("broker.hivemq.com",1883,60)
+client.loop_start()
+time.sleep(3)
+
 
 try:
     print("Ponga su dedo sobre el escaner")
@@ -73,6 +86,7 @@ try:
         p.ChangeDutyCycle(7)
         time.sleep(0.5)
         p.ChangeDutyCycle(0)
+        enviarmqtt("Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion","Truehuella")
     else:
         print("Huella no encontrada")
         """GPIO.output(pin, GPIO.HIGH)
@@ -90,4 +104,6 @@ except KeyboardInterrupt:
     print("Adiós")
     p.stop()
     GPIO.cleanup()
+    client.loop_stop()
+    client.disconnect()
     raise SystemExit
