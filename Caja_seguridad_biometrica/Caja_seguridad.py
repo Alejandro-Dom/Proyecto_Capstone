@@ -131,9 +131,6 @@ def on_message(client, userdata, msg):
 client=mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
-
-client = mqtt.Client()
-client.on_connect = on_connect
 client.connect("broker.hivemq.com",1883,60)
 client.loop_start()
 time.sleep(3)
