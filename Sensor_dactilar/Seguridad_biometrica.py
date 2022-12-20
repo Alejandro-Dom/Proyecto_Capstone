@@ -43,9 +43,9 @@ pin = ""
 
 #################Funciones#################################
 
-""""
-def get_fingerprint():
-    Se obtiene una imagen de huella dactilar, se hace un modelo y se compara
+
+"""def get_fingerprint():
+    #Se obtiene una imagen de huella dactilar, se hace un modelo y se compara
     print("Esperando la imagen..")
     while finger.get_image() != adafruit_fingerprint.OK:
         pass
@@ -60,8 +60,7 @@ def get_fingerprint():
 
 
 def get_num(max_number):
-    Se usa input() para obtener un número válido de 0 al tamaño máximo
-     de la biblioteca
+    #Se usa input() para obtener un número válido de 0 al tamaño máximo de la biblioteca
     i = -1
     while (i > max_number - 1) or (i < 0):
         try:
@@ -74,16 +73,22 @@ def enviarmqtt(tema, mensaje, host = "broker.hivemq.com", Puerto = 1883):
 
 #Función para recibir el pin de acceso generado por el ESP32
 def on_connect(client, userdata,flags,rc):
-    print("Se conecto con mqtt" + str(rc))
-    client.subscribe("Capstone/Caja_Seguridad_Biometrica/MADS")
+    print("Se conecto con mqtt " + str(rc))
+    client.subscribe("Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion")
 def on_message(client, userdata, msg):
-    if msg.topic == "Capstone/Caja_Seguridad_Biometrica/MADS":
+    if msg.topic == "Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion":
         pin=(msg.payload.decode("utf-8"))
         print (pin)
+        
 client=mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 
 client.connect("broker.hivemq.com",1883,60)
 client.loop_forever()
+
+if (pin == "True"):
+    print("Se confirma el estado del pin")
+else:
+    print("error")
 
