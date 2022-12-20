@@ -112,9 +112,6 @@ if(pin== "True"):
                 sleep(0.3)
                 GPIO.output(buzz, GPIO.LOW)
                 sleep(0.3) 
-        GPIO.cleanup()
-        p.stop()
-        raise SystemExit
     except KeyboardInterrupt:         
         print("Adiós")
         p.stop()
