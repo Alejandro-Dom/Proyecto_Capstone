@@ -32,7 +32,7 @@ GPIO.setup(servo, GPIO.OUT)
 GPIO.setup(buzz, GPIO.OUT, initial = GPIO.LOW)
 p = GPIO.PWM(servo,50) #GPIO 17 para PWM con pulso de 50 Hz
 p.start(2.5)
-keypad = ""
+pin = ""
 
 # Usando con Linux/Raspberry Pi 4 y hardware UART:
 uart = serial.Serial("/dev/ttyS0", baudrate=57600, timeout=1)
@@ -77,10 +77,10 @@ def enviarmqtt(tema, mensaje, host = "broker.hivemq.com", Puerto = 1883):
 
 #Función para recibir el pin de acceso generado por el ESP32
 def on_message(client, userdata, msg):
-    global keypad
+    global pin
     if msg.topic == "Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion":
-        keypad=(msg.payload.decode("utf-8"))
-        return keypad
+        pin=(msg.payload.decode("utf-8"))
+        print (pin)
 
 client = mqtt.Client()
 client.on_connect = on_connect
