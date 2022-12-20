@@ -89,33 +89,4 @@ client.loop_start()
 time.sleep(3)
 
 print("Ingresa la contraseña")
-print(keypad)
-if(keypad == "True"):
-    try:
-        print("Ponga su dedo sobre el escaner")
-        if get_fingerprint():
-            print("Huella detectada con ID #", finger.finger_id, "con valor de confianza =", finger.confidence)
-            GPIO.output(LEDV, GPIO.HIGH)
-            time.sleep(1)
-            GPIO.output(LEDV, GPIO.LOW)
-            enviarmqtt("Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion","Seguro abierto")
-        else:
-            print("Huella no encontrada")
-            GPIO.output(LEDR, GPIO.HIGH)
-            time.sleep(1)
-            GPIO.output(LEDR, GPIO.LOW)
-            while True:
-                GPIO.output(buzz, GPIO.HIGH)
-                sleep(0.3)
-                GPIO.output(buzz, GPIO.LOW)
-                sleep(0.3) 
-        GPIO.cleanup()
-        p.stop()
-        raise SystemExit
-    except KeyboardInterrupt:         
-        print("Adiós")
-        p.stop()
-        GPIO.cleanup()
-        client.loop_stop()
-        client.disconnect()
-        raise SystemExit
+print(pin)
