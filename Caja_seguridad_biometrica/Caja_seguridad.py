@@ -55,8 +55,8 @@ C3 = 20
 C4 = 21
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(LEDV, GPIO.OUT)
-GPIO.setup(LEDR, GPIO.OUT)
+GPIO.setup(LEDV, GPIO.OUT, initial = GPIO.LOW)
+GPIO.setup(LEDR, GPIO.OUT, initial = GPIO.LOW)
 GPIO.setup(servo, GPIO.OUT)
 GPIO.setup(buzz, GPIO.OUT, initial = GPIO.LOW)
 GPIO.setup(L1, GPIO.OUT)
@@ -159,9 +159,9 @@ def checkSpecialKeys():
 
     if (GPIO.input(C4) == 1):
         print("Reset!")
-        servo1.ChangeDutyCycle(2+(90/18))
-        Led_verde.off()
-        Led_rojo.off();
+        p.ChangeDutyCycle(2+(90/18))
+        GPIO.output(LEDV, GPIO.LOW)
+        GPIO.output(LEDR, GPIO.LOW)
         pressed = True
 
     GPIO.output(L3, GPIO.LOW)
@@ -170,15 +170,15 @@ def checkSpecialKeys():
     if (not pressed and GPIO.input(C4) == 1):
         if input == pin:
             print("Contraseña correcta!")
-            Led_verde.on()
-            Led_rojo.off()
-            servo1.ChangeDutyCycle(2+(0/18))
+            GPIO.output(LEDV, GPIO.HIGH)
+            GPIO.output(LEDR, GPIO.LOW)
+            p.ChangeDutyCycle(2+(0/18))
             enviarMQTT("Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion","True")
         
         else:
             print("Contraseña incorrecta!")
-            Led_verde.off()
-            Led_rojo.on()
+            GPIO.output(LEDV, GPIO.LOW)
+            GPIO.output(LEDR, GPIO.HIGH)
         pressed = True
 
     GPIO.output(L3, GPIO.LOW)
@@ -225,18 +225,18 @@ try:
             print("Ponga su dedo sobre el escaner")
         if get_fingerprint():
             print("Huella detectada con ID #", finger.finger_id, "con valor de confianza =", finger.confidence)
-            GPIO.output(Pin, GPIO.HIGH)
+            GPIO.output(LEDV, GPIO.HIGH)
             time.sleep(1)
-            GPIO.output(Pin, GPIO.LOW)
+            GPIO.output(LEDR, GPIO.LOW)
             p.ChangeDutyCycle(7)
             time.sleep(0.5)
             p.ChangeDutyCycle(0)
-            enviarmqtt("Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion","Truehuella")
+            enviarMQTT("Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion","Truehuella")
         else:
             print("Huella no encontrada")
-            GPIO.output(pin, GPIO.HIGH)
+            GPIO.output(LEDR, GPIO.HIGH)
             time.sleep(1)
-            GPIO.output(pin, GPIO.LOW)
+            GPIO.output(LEDR, GPIO.LOW)
             while True:
                 GPIO.output(buzz, GPIO.HIGH)
                 sleep(0.3)
