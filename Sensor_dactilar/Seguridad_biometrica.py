@@ -36,15 +36,15 @@ p.start(2.5)
 pin = ""
 
 # Usando con Linux/Raspberry Pi 4 y hardware UART:
-#uart = serial.Serial("/dev/ttyS0", baudrate=57600, timeout=1)
+uart = serial.Serial("/dev/ttyS0", baudrate=57600, timeout=1)
 
 #Se crea el objeto finger
-#finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
+finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
 
 #################Funciones#################################
 
 
-"""def get_fingerprint():
+def get_fingerprint():
     #Se obtiene una imagen de huella dactilar, se hace un modelo y se compara
     print("Esperando la imagen..")
     while finger.get_image() != adafruit_fingerprint.OK:
@@ -67,7 +67,7 @@ def get_num(max_number):
             i = int(input("Ingresa un ID # desde 0-{}: ".format(max_number - 1)))
         except ValueError:
             pass
-    return i"""
+    return i
 def enviarmqtt(tema, mensaje, host = "broker.hivemq.com", Puerto = 1883):
     client.publish(tema, mensaje)
 
@@ -79,6 +79,26 @@ def on_message(client, userdata, msg):
     if msg.topic == "Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion":
         pin=(msg.payload.decode("utf-8"))
         print (pin)
+        if (pin == "True"):
+            print("Ponga su dedo sobre el escaner")
+            if get_fingerprint():
+                print("Huella detectada con ID #", finger.finger_id, "con valor de confianza =", finger.confidence)
+                GPIO.output(LEDV, GPIO.HIGH)
+                time.sleep(1)
+                GPIO.output(LEDV, GPIO.LOW)
+            else:
+                print("Huella no encontrada")
+                GPIO.output(LEDR, GPIO.HIGH)
+                time.sleep(1)
+                GPIO.output(LEDR, GPIO.LOW)
+                huella = False
+                while True:
+                    GPIO.output(buzz, GPIO.HIGH)
+                    sleep(0.3)
+                    GPIO.output(buzz, GPIO.LOW)
+                    sleep(0.3) 
+        else:
+            print("Pin incorrecto")
         
 client=mqtt.Client()
 client.on_connect = on_connect
@@ -87,8 +107,5 @@ client.on_message = on_message
 client.connect("broker.hivemq.com",1883,60)
 client.loop_forever()
 
-if (pin == "True"):
-    print("Se confirma el estado del pin")
-else:
-    print("error")
+
 
