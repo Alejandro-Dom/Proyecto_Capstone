@@ -4,7 +4,7 @@
 #  hace una comparación y envia una señal al servomotor
 #  para abrir la compuerta de la caja biométrica
 #  por: Luis Manuel Sanchez Vivar y Alejandro Domínguez Ramírez
-#  el 19 de diciembre del 2022
+#  el 17 de noviembre del 2022
 import RPi.GPIO as GPIO
 from gpiozero import LED
 import paho.mqtt.client as mqtt
