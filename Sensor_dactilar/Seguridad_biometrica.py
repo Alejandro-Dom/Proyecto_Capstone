@@ -1,5 +1,10 @@
 # SPDX-FileCopyrightText: 2021 ladyada for Adafruit Industries
 # SPDX-License-Identifier: MIT
+# Este programa sirve para controlar el acceso
+# Lee la huella dactilar del usuario y manda un mensaje
+# de confirmación por mqtt 
+# Ultima modificación por: Alejandro Domínguez Ramírez y Luis Manuel Sanchez Vivar
+# el 01 de diciembre del 2022
 """
 Conexión Hardware
             As608 --- RPi4
