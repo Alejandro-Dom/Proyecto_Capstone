@@ -90,7 +90,7 @@ time.sleep(3)
 
 print("Ingresa la contraseña")
 print(keypad)
-while keypad == "True":
+if(keypad == "True"):
     try:
         print("Ponga su dedo sobre el escaner")
         if get_fingerprint():
