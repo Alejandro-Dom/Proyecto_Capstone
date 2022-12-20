@@ -67,9 +67,9 @@ def on_connect (client,userdata,flags,rc):
     print("Se conectó con mqtt")
 
 def enviarmqtt(tema, mensaje, host = "broker.hivemq.com", Puerto = 1883):
-    client.publis(tema, mensaje)
+    client.publish(tema, mensaje)
 
-client = mqtt.client()
+client = mqtt.Client()
 client.on_connect = on_connect
 client.connect("broker.hivemq.com",1883,60)
 client.loop_start()
