@@ -222,29 +222,6 @@ try:
                 time.sleep(0.1)
             else:
                 time.sleep(0.1)
-            print("Ponga su dedo sobre el escaner")
-        if get_fingerprint():
-            print("Huella detectada con ID #", finger.finger_id, "con valor de confianza =", finger.confidence)
-            GPIO.output(LEDV, GPIO.HIGH)
-            time.sleep(1)
-            GPIO.output(LEDR, GPIO.LOW)
-            p.ChangeDutyCycle(7)
-            time.sleep(0.5)
-            p.ChangeDutyCycle(0)
-            enviarMQTT("Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion","Truehuella")
-        else:
-            print("Huella no encontrada")
-            GPIO.output(LEDR, GPIO.HIGH)
-            time.sleep(1)
-            GPIO.output(LEDR, GPIO.LOW)
-            while True:
-                GPIO.output(buzz, GPIO.HIGH)
-                sleep(0.3)
-                GPIO.output(buzz, GPIO.LOW)
-                sleep(0.3) 
-        GPIO.cleanup()
-        p.stop()
-        raise SystemExit
 except KeyboardInterrupt:
     print("Adios")
     p.stop()
