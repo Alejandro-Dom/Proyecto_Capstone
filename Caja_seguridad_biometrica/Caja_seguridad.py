@@ -159,7 +159,7 @@ def checkSpecialKeys():
 
     if (GPIO.input(C4) == 1):
         print("Reset!")
-        p.ChangeDutyCycle(2+(90/18))
+        p.ChangeDutyCycle(2.5)
         GPIO.output(LEDV, GPIO.LOW)
         GPIO.output(LEDR, GPIO.LOW)
         pressed = True
@@ -172,7 +172,7 @@ def checkSpecialKeys():
             print("Contraseña correcta!")
             GPIO.output(LEDV, GPIO.HIGH)
             GPIO.output(LEDR, GPIO.LOW)
-            p.ChangeDutyCycle(2+(0/18))
+            p.ChangeDutyCycle(7)
             enviarMQTT("Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion","True")
         
         else:
@@ -203,6 +203,7 @@ def readLine(line, characters):
     GPIO.output(line, GPIO.LOW)
 
 try:
+    print(pin)
     while True:
         # If a button was previously pressed,
         # check, whether the user has released it yet
@@ -222,6 +223,7 @@ try:
                 time.sleep(0.1)
             else:
                 time.sleep(0.1)
+
 except KeyboardInterrupt:
     print("Adios")
     p.stop()
