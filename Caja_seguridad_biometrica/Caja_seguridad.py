@@ -128,6 +128,14 @@ def on_message(client, userdata, msg):
         pin=(msg.payload.decode("utf-8"))
         return pin
 
+#Función que compara
+def abrir_servo(keypad,huella):
+    if (keypad == True and huella == True):
+        p.ChangeDutyCycle(7)
+        time.sleep(0.5)
+        p.ChangeDutyCycle(0)
+
+
 client=mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
@@ -169,8 +177,8 @@ def checkSpecialKeys():
             print("Contraseña correcta!")
             GPIO.output(LEDV, GPIO.HIGH)
             GPIO.output(LEDR, GPIO.LOW)
-            p.ChangeDutyCycle(7)
             enviarMQTT("Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion","True")
+            keypad = True
         
         else:
             print("Contraseña incorrecta!")
@@ -203,6 +211,25 @@ def readLine(line, characters):
         print(input)
     GPIO.output(line, GPIO.LOW)
 
+print("Ponga su dedo sobre el escaner")
+if get_fingerprint():
+    print("Huella detectada con ID #", finger.finger_id, "con valor de confianza =", finger.confidence)
+    GPIO.output(LEDV, GPIO.HIGH)
+    time.sleep(1)
+    GPIO.output(LEDV, GPIO.LOW)
+    enviarMQTT("Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion","Truehuella")
+    huella = True
+else:
+    print("Huella no encontrada")
+    GPIO.output(LEDR, GPIO.HIGH)
+    time.sleep(1)
+    GPIO.output(LEDR, GPIO.LOW)
+    huella = False
+    while True:
+        GPIO.output(buzz, GPIO.HIGH)
+        sleep(0.3)
+        GPIO.output(buzz, GPIO.LOW)
+        sleep(0.3) 
 try:
     while True:
         # If a button was previously pressed,
@@ -223,7 +250,6 @@ try:
                 time.sleep(0.1)
             else:
                 time.sleep(0.1)
-
 except KeyboardInterrupt:
     print("Adios")
     p.stop()
