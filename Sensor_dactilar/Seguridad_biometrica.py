@@ -74,6 +74,13 @@ def on_connect (client,userdata,flags,rc):
 def enviarmqtt(tema, mensaje, host = "broker.hivemq.com", Puerto = 1883):
     client.publish(tema, mensaje)
 
+#Función para recibir el pin de acceso generado por el ESP32
+def on_message(client, userdata, msg):
+    global keypad
+    if msg.topic == "Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion":
+        keypad=(msg.payload.decode("utf-8"))
+        return keypad
+
 client = mqtt.Client()
 client.on_connect = on_connect
 client.connect("broker.hivemq.com",1883,60)
@@ -88,15 +95,18 @@ try:
         GPIO.output(Pin, GPIO.HIGH)
         time.sleep(1)
         GPIO.output(Pin, GPIO.LOW)
-        p.ChangeDutyCycle(7)
-        time.sleep(0.5)
-        p.ChangeDutyCycle(0)
+        print("Ingresa la contraseña")
         enviarmqtt("Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion","Truehuella")
+        if (keypad == True):
+            p.ChangeDutyCycle(7)
+            time.sleep(0.5)
+            p.ChangeDutyCycle(0)
+
     else:
         print("Huella no encontrada")
-        """GPIO.output(pin, GPIO.HIGH)
+        GPIO.output(pin, GPIO.HIGH)
         time.sleep(1)
-        GPIO.output(pin, GPIO.LOW)""" 
+        GPIO.output(pin, GPIO.LOW)
         while True:
             GPIO.output(buzz, GPIO.HIGH)
             sleep(0.3)
