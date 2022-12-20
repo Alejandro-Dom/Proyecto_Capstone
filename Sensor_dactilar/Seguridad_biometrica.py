@@ -36,16 +36,16 @@ p.start(2.5)
 pin = ""
 
 # Usando con Linux/Raspberry Pi 4 y hardware UART:
-uart = serial.Serial("/dev/ttyS0", baudrate=57600, timeout=1)
+#uart = serial.Serial("/dev/ttyS0", baudrate=57600, timeout=1)
 
 #Se crea el objeto finger
-finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
+#finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
 
 #################Funciones#################################
 
-
+""""
 def get_fingerprint():
-    """Se obtiene una imagen de huella dactilar, se hace un modelo y se compara"""
+    Se obtiene una imagen de huella dactilar, se hace un modelo y se compara
     print("Esperando la imagen..")
     while finger.get_image() != adafruit_fingerprint.OK:
         pass
@@ -60,15 +60,15 @@ def get_fingerprint():
 
 
 def get_num(max_number):
-    """Se usa input() para obtener un número válido de 0 al tamaño máximo
-     de la biblioteca"""
+    Se usa input() para obtener un número válido de 0 al tamaño máximo
+     de la biblioteca
     i = -1
     while (i > max_number - 1) or (i < 0):
         try:
             i = int(input("Ingresa un ID # desde 0-{}: ".format(max_number - 1)))
         except ValueError:
             pass
-    return i
+    return i"""
 
 def on_connect (client,userdata,flags,rc):
     print("Se conectó con mqtt")
