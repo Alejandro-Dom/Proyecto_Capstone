@@ -21,13 +21,13 @@ import RPi.GPIO as GPIO
 import adafruit_fingerprint
 import paho.mqtt.client as mqtt
 
-Pin = 20
-#pin = 21
+LEDV = 27
+LEDR = 22
 servo = 17
 buzz = 23
 GPIO.setmode(GPIO.BCM)
-#GPIO.setup(pin, GPIO.OUT)
-GPIO.setup(Pin, GPIO.OUT)
+GPIO.setup(LEDR, GPIO.OUT)
+GPIO.setup(LEDV, GPIO.OUT)
 GPIO.setup(servo, GPIO.OUT)
 GPIO.setup(buzz, GPIO.OUT, initial = GPIO.LOW)
 p = GPIO.PWM(servo,50) #GPIO 17 para PWM con pulso de 50 Hz
@@ -92,9 +92,9 @@ try:
     print("Ponga su dedo sobre el escaner")
     if get_fingerprint():
         print("Huella detectada con ID #", finger.finger_id, "con valor de confianza =", finger.confidence)
-        GPIO.output(Pin, GPIO.HIGH)
+        GPIO.output(LEDV, GPIO.HIGH)
         time.sleep(1)
-        GPIO.output(Pin, GPIO.LOW)
+        GPIO.output(LEDV, GPIO.LOW)
         print("Ingresa la contraseña")
         enviarmqtt("Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion","Truehuella")
         if (keypad == True):
@@ -104,9 +104,9 @@ try:
 
     else:
         print("Huella no encontrada")
-        GPIO.output(pin, GPIO.HIGH)
+        GPIO.output(LEDR, GPIO.HIGH)
         time.sleep(1)
-        GPIO.output(pin, GPIO.LOW)
+        GPIO.output(LEDR, GPIO.LOW)
         while True:
             GPIO.output(buzz, GPIO.HIGH)
             sleep(0.3)
