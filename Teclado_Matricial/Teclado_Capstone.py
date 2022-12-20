@@ -1,3 +1,10 @@
+#  Este programa sirve para controlar el acceso
+#  recibe el pin mediante una conexión con MQTT
+#  y lee las teclas presionadas por el usario,
+#  hace una comparación y envia una señal al servomotor
+#  para abrir la compuerta de la caja biométrica
+#  por: Luis Manuel Sanchez Vivar y Alejandro Domínguez Ramírez
+#  el 19 de diciembre del 2022
 import RPi.GPIO as GPIO
 from gpiozero import LED
 import paho.mqtt.client as mqtt
@@ -25,7 +32,7 @@ servo1.start(0)
 # El -1 indica que no hay tecla presionada
 keypadPressed = -1
 
-pin = "123"
+pin = ""
 input = ""
 
 # Setup GPIO
@@ -42,9 +49,11 @@ GPIO.setup(C4, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 def on_connect(client, userdata,flags,rc):
     print("Se conecto con mqtt" + str(rc))
     client.subscribe("Capstone/Caja_Seguridad_Biometrica/MADS")
+def enviarMQTT(tema,mensaje,host="broker.hivemq.com",Puerto=1883):
+    client.publish(tema, mensaje)
 def on_message(client, userdata, msg):
+    global pin
     if msg.topic == "Capstone/Caja_Seguridad_Biometrica/MADS":
-        global pin
         pin=(msg.payload.decode("utf-8"))
         return pin
 client=mqtt.Client()
@@ -95,6 +104,7 @@ def checkSpecialKeys():
             Led_verde.on()
             Led_rojo.off()
             servo1.ChangeDutyCycle(2+(0/18))
+            enviarMQTT("Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion","True")
         
         else:
             print("Contraseña incorrecta!")
