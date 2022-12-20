@@ -191,16 +191,16 @@ def readLine(line, characters):
     GPIO.output(line, GPIO.HIGH)
     if(GPIO.input(C1) == 1):
         input = input + characters[0]
-        #print(input)
+        print(input)
     if(GPIO.input(C2) == 1):
         input = input + characters[1]
-        #print(input)
+        print(input)
     if(GPIO.input(C3) == 1):
         input = input + characters[2]
-        #print(input)
+        print(input)
     if(GPIO.input(C4) == 1):
         input = input + characters[3]
-        #print(input)
+        print(input)
     GPIO.output(line, GPIO.LOW)
 
 try:
