@@ -98,7 +98,7 @@ if(keypad == "True"):
             GPIO.output(LEDV, GPIO.HIGH)
             time.sleep(1)
             GPIO.output(LEDV, GPIO.LOW)
-            enviarmqtt("Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion","Truehuella")
+            enviarmqtt("Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion","Seguro abierto")
         else:
             print("Huella no encontrada")
             GPIO.output(LEDR, GPIO.HIGH)
