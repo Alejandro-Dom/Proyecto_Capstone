@@ -86,6 +86,9 @@ def on_message(client, userdata, msg):
                 GPIO.output(LEDV, GPIO.HIGH)
                 time.sleep(1)
                 GPIO.output(LEDV, GPIO.LOW)
+                p.ChangeDutyCycle(7)
+                time.sleep(0.5)
+                p.ChangeDutyCycle(0)
             else:
                 print("Huella no encontrada")
                 GPIO.output(LEDR, GPIO.HIGH)
@@ -99,6 +102,9 @@ def on_message(client, userdata, msg):
                     sleep(0.3) 
         else:
             print("Pin incorrecto")
+            print("Adios")
+            p.stop()
+            GPIO.cleanup()
         
 client=mqtt.Client()
 client.on_connect = on_connect
@@ -106,6 +112,7 @@ client.on_message = on_message
 
 client.connect("broker.hivemq.com",1883,60)
 client.loop_forever()
+
 
 
 
