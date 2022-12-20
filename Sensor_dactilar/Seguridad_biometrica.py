@@ -69,28 +69,21 @@ def get_num(max_number):
         except ValueError:
             pass
     return i"""
-
-def on_connect (client,userdata,flags,rc):
-    print("Se conectó con mqtt")
-
 def enviarmqtt(tema, mensaje, host = "broker.hivemq.com", Puerto = 1883):
     client.publish(tema, mensaje)
 
 #Función para recibir el pin de acceso generado por el ESP32
+def on_connect(client, userdata,flags,rc):
+    print("Se conecto con mqtt" + str(rc))
+    client.subscribe("Capstone/Caja_Seguridad_Biometrica/MADS")
 def on_message(client, userdata, msg):
-    global pin
-    if msg.topic == "Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion":
+    if msg.topic == "Capstone/Caja_Seguridad_Biometrica/MADS":
         pin=(msg.payload.decode("utf-8"))
         print (pin)
-
 client=mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 
 client.connect("broker.hivemq.com",1883,60)
 client.loop_forever()
-time.sleep(3)
-
-print("Ingresa la contraseña")
-print(pin)
 
