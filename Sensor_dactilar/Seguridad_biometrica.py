@@ -89,6 +89,8 @@ time.sleep(3)
 
 
 try:
+    print("Ingresa la contraseña")
+    print(keypad)
     print("Ponga su dedo sobre el escaner")
     if get_fingerprint():
         print("Huella detectada con ID #", finger.finger_id, "con valor de confianza =", finger.confidence)
@@ -97,10 +99,6 @@ try:
         GPIO.output(LEDV, GPIO.LOW)
         print("Ingresa la contraseña")
         enviarmqtt("Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion","Truehuella")
-        if (keypad == True):
-            p.ChangeDutyCycle(7)
-            time.sleep(0.5)
-            p.ChangeDutyCycle(0)
 
     else:
         print("Huella no encontrada")
