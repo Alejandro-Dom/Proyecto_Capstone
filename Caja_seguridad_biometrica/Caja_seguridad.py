@@ -29,6 +29,7 @@ Conexión Hardware
 (negro)         GND        ---  GND  
 """
 #Bibliotecas
+import time
 from time import sleep
 import serial
 import RPi.GPIO as GPIO
