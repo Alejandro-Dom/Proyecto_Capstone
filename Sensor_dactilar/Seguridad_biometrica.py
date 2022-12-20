@@ -88,6 +88,7 @@ client.loop_start()
 time.sleep(3)
 
 print("Ingresa la contraseña")
+print(keypad)
 while keypad == "True":
     try:
         print("Ponga su dedo sobre el escaner")
