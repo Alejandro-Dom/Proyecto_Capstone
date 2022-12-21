@@ -48,7 +48,7 @@ GPIO.setup(LEDV, GPIO.OUT)
 GPIO.setup(servo, GPIO.OUT)
 GPIO.setup(buzz, GPIO.OUT, initial = GPIO.LOW)
 p = GPIO.PWM(servo,50) #GPIO 17 para PWM con pulso de 50 Hz
-p.start(2.5)
+p.start(7)
 pin = ""
 
 # Usando con Linux/Raspberry Pi 4 y hardware UART:
@@ -100,7 +100,7 @@ def on_message(client, userdata, msg):
                 GPIO.output(LEDV, GPIO.HIGH)
                 time.sleep(1)
                 GPIO.output(LEDV, GPIO.LOW)
-                p.ChangeDutyCycle(7)
+                p.ChangeDutyCycle(12)
                 time.sleep(0.5)
                 p.ChangeDutyCycle(0)
             else:
