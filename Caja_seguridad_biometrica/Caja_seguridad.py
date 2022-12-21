@@ -113,7 +113,6 @@ def on_message(client, userdata, msg):
                     sleep(0.3)
                     GPIO.output(buzz, GPIO.LOW)
                     sleep(0.3) 
-                    raise SystemExit
         else:
             print("Pin incorrecto")
             print("Adios")
