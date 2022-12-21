@@ -22,12 +22,12 @@ C2 = 16
 C3 = 20
 C4 = 21
 #Led rojo y verde
-Led_verde = LED(27)
-Led_rojo = LED(22)
+#Led_verde = LED(27)
+#Led_rojo = LED(22)
 #Servomotor
-GPIO.setup(17,GPIO.OUT)
-servo1 = GPIO.PWM(17,50)
-servo1.start(0)
+#GPIO.setup(17,GPIO.OUT)
+#servo1 = GPIO.PWM(17,50)
+#servo1.start(0)
 
 # El -1 indica que no hay tecla presionada
 keypadPressed = -1
@@ -90,9 +90,9 @@ def checkSpecialKeys():
 
     if (GPIO.input(C4) == 1):
         print("Reset!")
-        servo1.ChangeDutyCycle(2+(90/18))
-        Led_verde.off()
-        Led_rojo.off();
+        #servo1.ChangeDutyCycle(2+(90/18))
+        #Led_verde.off()
+        #Led_rojo.off();
         pressed = True
 
     GPIO.output(L3, GPIO.LOW)
@@ -101,15 +101,16 @@ def checkSpecialKeys():
     if (not pressed and GPIO.input(C4) == 1):
         if input == pin:
             print("Contraseña correcta!")
-            Led_verde.on()
-            Led_rojo.off()
-            servo1.ChangeDutyCycle(2+(0/18))
-            enviarMQTT("Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion","True")
+            #Led_verde.on()
+            #Led_rojo.off()
+            #servo1.ChangeDutyCycle(2+(0/18))
+            enviarMQTT("Capstone/Caja_Seguridad_Biometrica/MADS/Con","True")
         
         else:
             print("Contraseña incorrecta!")
-            Led_verde.off()
-            Led_rojo.on()
+            #Led_verde.off()
+            #Led_rojo.on()
+            enviarMQTT("Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion","False")
         pressed = True
 
     GPIO.output(L3, GPIO.LOW)
@@ -128,12 +129,16 @@ def readLine(line, characters):
     GPIO.output(line, GPIO.HIGH)
     if(GPIO.input(C1) == 1):
         input = input + characters[0]
+        print(input)
     if(GPIO.input(C2) == 1):
         input = input + characters[1]
+        print(input)
     if(GPIO.input(C3) == 1):
         input = input + characters[2]
+        print(input)
     if(GPIO.input(C4) == 1):
         input = input + characters[3]
+        print(input)
     GPIO.output(line, GPIO.LOW)
 
 try:
@@ -145,7 +150,7 @@ try:
             if GPIO.input(keypadPressed) == 0:
                 keypadPressed = -1
             else:
-                time.sleep(0.1)
+                time.sleep(0.16)
         # Otherwise, just read the input
         else:
             if not checkSpecialKeys():
@@ -153,9 +158,9 @@ try:
                 readLine(L2, ["4","5","6","B"])
                 readLine(L3, ["7","8","9","C"])
                 readLine(L4, ["*","0","#","D"])
-                time.sleep(0.1)
+                time.sleep(0.16)
             else:
-                time.sleep(0.1)
+                time.sleep(0.16)
 except KeyboardInterrupt:
     print("\nApplication stopped!")
 client.loop_stop()
