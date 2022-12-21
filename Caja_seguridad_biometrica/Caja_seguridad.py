@@ -103,6 +103,7 @@ def on_message(client, userdata, msg):
                 p.ChangeDutyCycle(12)
                 time.sleep(0.5)
                 p.ChangeDutyCycle(0)
+                raise SystemExit
             else:
                 print("Huella no encontrada")
                 GPIO.output(LEDR, GPIO.HIGH)
