@@ -35,7 +35,8 @@ Se espera tener un producto totalmente funcional, el cual se pueda abrir solamen
 - MQTT
 - Node-RED
 
-
+## Workflow
+![](https://github.com/Alejandro-Dom/Proyecto_Capstone/blob/main/Imagenes/Workflow.png)
 ## Instrucciones:
 1. Revisar el curso en la página de CodigoIoT en el siguiente enlace: https://edu.codigoiot.com/course/view.php?id=978#section-1
 2. Clonar el repositorio
