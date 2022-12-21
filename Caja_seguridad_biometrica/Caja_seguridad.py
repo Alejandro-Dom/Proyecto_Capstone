@@ -108,17 +108,18 @@ def on_message(client, userdata, msg):
                 GPIO.output(LEDR, GPIO.HIGH)
                 time.sleep(1)
                 GPIO.output(LEDR, GPIO.LOW)
-                huella = False
                 while True:
                     GPIO.output(buzz, GPIO.HIGH)
                     sleep(0.3)
                     GPIO.output(buzz, GPIO.LOW)
                     sleep(0.3) 
+                    raise SystemExit
         else:
             print("Pin incorrecto")
             print("Adios")
             p.stop()
             GPIO.cleanup()
+            raise SystemExit
         
 client=mqtt.Client()
 client.on_connect = on_connect
