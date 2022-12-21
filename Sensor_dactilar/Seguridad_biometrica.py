@@ -45,7 +45,7 @@ finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
 
 
 def get_fingerprint():
-    #Se obtiene una imagen de huella dactilar, se hace un modelo y se compara
+    """Se obtiene una imagen de huella dactilar, se hace un modelo y se compara"""
     print("Esperando la imagen..")
     while finger.get_image() != adafruit_fingerprint.OK:
         pass
@@ -56,11 +56,10 @@ def get_fingerprint():
     if finger.finger_search() != adafruit_fingerprint.OK:
         return False
     return True
-##################################################
-
 
 def get_num(max_number):
-    #Se usa input() para obtener un número válido de 0 al tamaño máximo de la biblioteca
+    """Se usa input() para obtener un número válido de 0 al tamaño máximo
+     de la biblioteca"""
     i = -1
     while (i > max_number - 1) or (i < 0):
         try:
@@ -68,50 +67,35 @@ def get_num(max_number):
         except ValueError:
             pass
     return i
-def enviarmqtt(tema, mensaje, host = "broker.hivemq.com", Puerto = 1883):
-    client.publish(tema, mensaje)
 
-#Función para recibir el pin de acceso generado por el ESP32
-def on_connect(client, userdata,flags,rc):
-    print("Se conecto con mqtt " + str(rc))
-    client.subscribe("Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion")
-def on_message(client, userdata, msg):
-    if msg.topic == "Capstone/Caja_Seguridad_Biometrica/MADS/Confirmacion":
-        pin=(msg.payload.decode("utf-8"))
-        print (pin)
-        if (pin == "True"):
-            print("Ponga su dedo sobre el escaner")
-            if get_fingerprint():
-                print("Huella detectada con ID #", finger.finger_id, "con valor de confianza =", finger.confidence)
-                GPIO.output(LEDV, GPIO.HIGH)
-                time.sleep(1)
-                GPIO.output(LEDV, GPIO.LOW)
-                p.ChangeDutyCycle(7)
-                time.sleep(0.5)
-                p.ChangeDutyCycle(0)
-            else:
-                print("Huella no encontrada")
-                GPIO.output(LEDR, GPIO.HIGH)
-                time.sleep(1)
-                GPIO.output(LEDR, GPIO.LOW)
-                huella = False
-                while True:
-                    GPIO.output(buzz, GPIO.HIGH)
-                    sleep(0.3)
-                    GPIO.output(buzz, GPIO.LOW)
-                    sleep(0.3) 
-        else:
-            print("Pin incorrecto")
-            print("Adios")
-            p.stop()
-            GPIO.cleanup()
-        
-client=mqtt.Client()
-client.on_connect = on_connect
-client.on_message = on_message
-
-client.connect("broker.hivemq.com",1883,60)
-client.loop_forever()
+try:
+    print("Ponga su dedo sobre el escaner")
+    if get_fingerprint():
+        print("Huella detectada con ID #", finger.finger_id, "con valor de confianza =", finger.confidence)
+        GPIO.output(LEDV, GPIO.HIGH)
+        time.sleep(1)
+        GPIO.output(LEDV, GPIO.LOW)
+        p.ChangeDutyCycle(7)
+        time.sleep(0.5)
+        p.ChangeDutyCycle(0)
+    else:
+        print("Huella no encontrada")
+        GPIO.output(LEDR, GPIO.HIGH)
+        time.sleep(1)
+        GPIO.output(LEDR, GPIO.LOW)
+        while True:
+            GPIO.output(buzz, GPIO.HIGH)
+            sleep(0.3)
+            GPIO.output(buzz, GPIO.LOW)
+            sleep(0.3) 
+    GPIO.cleanup()
+    p.stop()
+    raise SystemExit
+except KeyboardInterrupt:         
+    print("Adiós")
+    p.stop()
+    GPIO.cleanup()
+    raise SystemExit
 
 
 
